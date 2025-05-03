@@ -1,32 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3832006d-dce1-44e4-922d-4aeb2e55c292" name="Changes" comment="" />
+    <list default="true" id="3832006d-dce1-44e4-922d-4aeb2e55c292" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/PythonProject1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attendance_system/_init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attendance_system/asgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attendance_system/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attendance_system/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Attendance_system/wsgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/templates/face_recognition_app/admin_dasboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/templates/face_recognition_app/admin_login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/templates/face_recognition_app/attendance.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/templates/face_recognition_app/details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/templates/face_recognition_app/employees.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/templates/face_recognition_app/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/templates/face_recognition_app/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/face_recognition_app/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/face_recognition_app/views.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2wSlelT2Jl0wqa3AND45ykglybq" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.employees.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.students.html.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/mlprojects/PythonProject1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;Python&quot;,
+      &quot;PLAIN_TEXT&quot;
+    ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\mlprojects\PythonProject1" />
+      <recent name="C:\Users\Lenovo\mlprojects\PythonProject1\face_recognition_app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\mlprojects\PythonProject1\face_recognition_app" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="employees.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/PythonProject1/face_recognition_app/templates/face_recognition_app/employees.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.employees.html" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -43,8 +124,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1746042952760</updated>
-      <workItem from="1746042953898" duration="11000" />
+      <workItem from="1746042953898" duration="1771000" />
+      <workItem from="1746044747683" duration="844000" />
+      <workItem from="1746046544654" duration="15728000" />
+      <workItem from="1746184350157" duration="3419000" />
+      <workItem from="1746188031868" duration="4240000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mark Attendance - Face Recognition System</title>
+    <style>
+        :root {
+            --primary-color: #1e3a5f;    /* Deep Ocean Blue */
+            --secondary-color: #2d4a7c;   /* Royal Blue */
+            --accent-color: #64ffda;      /* Mint */
+            --text-light: #e3f2fd;
+            --dark-bg: #0a192f;          /* Navy Dark */
+            --card-bg: #172a45;          /* Card Blue */
+            --border-color: rgba(100, 255, 218, 0.1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system;
+            background: linear-gradient(135deg, var(--dark-bg), #162744);
+            background-attachment: fixed;
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: var(--text-light);
+        }
+
+        .camera-container {
+            background: rgba(23, 42, 69, 0.8);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 20px auto;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .button {
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 15px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            color: var(--text-light);
+        }
+
+        .success-message {
+            background: rgba(74, 222, 128, 0.1);
+            color: #4ade80;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            display: none;
+        }
+
+        .attendance-log {
+            background: rgba(23, 42, 69, 0.8);
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 30px;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .log-entries {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .log-entries::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .log-entries::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .log-entries::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .log-entry {
+            background: rgba(30, 58, 95, 0.3);
+            margin: 8px 0;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .log-entry:first-child {
+            background: rgba(100, 255, 218, 0.1);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .log-entry:hover {
+            transform: translateX(5px);
+            border-color: var(--accent-color);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+        }
+
+        #video, #displayCanvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        #displayCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .camera-container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .video-wrapper {
+                height: 360px;
+            }
+
+            .button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-button">← Back to Dashboard</a>
+        <h1>Take Attendance</h1>
+
+        <div class="camera-container">
+            <div class="video-wrapper">
+                <video id="video" width="640" height="480" autoplay playsinline></video>
+                <canvas id="displayCanvas" width="640" height="480"></canvas>
+            </div>
+            <div>
+                <button id="startCamera" class="button">Start Camera</button>
+            </div>
+            <div id="result"></div>
+            <div id="successMessage" class="success-message"></div>
+        </div>
+
+        <!-- Update these styles -->
+        <style>
+            .camera-container {
+                position: relative;
+                width: 640px;
+                margin: 0 auto;
+            }
+            .video-wrapper {
+                position: relative;
+                width: 100%;
+                height: 480px;
+            }
+            #video {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+            #displayCanvas {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+            }
+        </style>
+
+        <div class="attendance-log">
+            <h3>Today's Attendance Log</h3>
+            <div id="attendanceLog" class="log-entries"></div>
+        </div>
+
+        <!-- Add these styles -->
+        <style>
+            .log-entries {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+            .log-entry {
+                background-color: #3d3e4e;
+                margin: 8px 0;
+                padding: 12px;
+                border-radius: 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .log-entry span {
+                font-size: 16px;
+            }
+            .log-entry:first-child {
+                background-color: #4a4b5e;
+                border-left: 4px solid #ffd700;
+            }
+        </style>
+
+        <script>
+            const video = document.getElementById('video');
+            const displayCanvas = document.getElementById('displayCanvas');
+            const startButton = document.getElementById('startCamera');
+            const resultDiv = document.getElementById('result');
+            const successMessage = document.getElementById('successMessage');
+            const attendanceLog = document.getElementById('attendanceLog');
+            let stream = null;
+            let isProcessing = false;
+
+            // Wait for video to be ready
+            video.addEventListener('loadedmetadata', () => {
+                displayCanvas.width = video.videoWidth;
+                displayCanvas.height = video.videoHeight;
+            });
+
+            startButton.addEventListener('click', async () => {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { 
+                            facingMode: 'user',
+                            width: { ideal: 640 },
+                            height: { ideal: 480 }
+                        } 
+                    });
+                    video.srcObject = stream;
+                    await video.play(); // Ensure video starts playing
+                    startButton.style.display = 'none';
+                    resultDiv.textContent = 'Camera started. Processing faces...';
+                    startRealTimeFaceRecognition();
+                } catch (err) {
+                    console.error('Camera error:', err);
+                    resultDiv.textContent = 'Error accessing camera: ' + err.message;
+                }
+            });
+
+        function startRealTimeFaceRecognition() {
+            setInterval(() => {
+                if (isProcessing) return;
+                isProcessing = true;
+
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0);
+                
+                canvas.toBlob(blob => {
+                    const formData = new FormData();
+                    formData.append('image', blob);
+                    
+                    fetch('/mark_attendance/', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.processed_image) {
+                            const img = new Image();
+                            img.onload = () => {
+                                const ctx = displayCanvas.getContext('2d');
+                                ctx.clearRect(0, 0, displayCanvas.width, displayCanvas.height);
+                                ctx.drawImage(img, 0, 0, displayCanvas.width, displayCanvas.height);
+                            };
+                            img.src = 'data:image/jpeg;base64,' + data.processed_image;
+                        }
+                        
+                        if (data.status === 'success') {
+                            // Only add to log if it's a new attendance
+                            const now = new Date();
+                            const timeString = now.toLocaleTimeString();
+                            const logEntry = document.createElement('div');
+                            logEntry.className = 'log-entry';
+                            logEntry.style.opacity = '0';
+                            logEntry.style.transform = 'translateY(-20px)';
+                            logEntry.style.transition = 'all 0.3s ease-out';
+                            logEntry.innerHTML = `
+                                <span>${data.student}</span>
+                                <span>${timeString}</span>
+                            `;
+                            
+                            attendanceLog.insertBefore(logEntry, attendanceLog.firstChild);
+                            requestAnimationFrame(() => {
+                                logEntry.style.opacity = '1';
+                                logEntry.style.transform = 'translateY(0)';
+                            });
+
+                            // Show success message
+                            successMessage.innerHTML = `✓ Attendance marked for ${data.student}`;
+                            successMessage.style.display = 'block';
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 3000);
+                        } else if (data.status === 'info') {
+                            // Optional: Show info message for already marked attendance
+                            resultDiv.textContent = data.message;
+                            setTimeout(() => {
+                                resultDiv.textContent = 'Camera running. Processing faces...';
+                            }, 2000);
+                        }
+                        isProcessing = false;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        isProcessing = false;
+                    });
+                }, 'image/jpeg', 0.95);
+            }, 1000); // Check every second
+        }
+
+        window.addEventListener('beforeunload', () => {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
+    </script>
+</body>
+</html>

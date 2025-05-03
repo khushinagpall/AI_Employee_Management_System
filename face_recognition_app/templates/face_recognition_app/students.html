@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Employees - Face Recognition System</title>
+    <style>
+        :root {
+            --primary-color: #1e3a5f;    /* Deep Ocean Blue */
+            --secondary-color: #2d4a7c;   /* Royal Blue */
+            --accent-color: #64ffda;      /* Mint */
+            --text-light: #e3f2fd;
+            --dark-bg: #0a192f;          /* Navy Dark */
+            --card-bg: #172a45;          /* Card Blue */
+            --border-color: rgba(100, 255, 218, 0.1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system;
+            background: linear-gradient(135deg, var(--dark-bg), #162744);
+            background-attachment: fixed;
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .employee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .employee-card {
+            background: rgba(23, 42, 69, 0.8);
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .employee-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 30px rgba(100, 255, 218, 0.1);
+        }
+
+        .employee-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            display: block;
+            border: 3px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .employee-photo:hover {
+            border-color: var(--accent-color);
+        }
+
+        .employee-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+        }
+
+        .delete-btn {
+            background-color: rgba(255, 86, 86, 0.1);
+            color: #ff5656;
+            border: 1px solid rgba(255, 86, 86, 0.2);
+        }
+
+        .edit-btn:hover, .delete-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            color: var(--text-light);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(23, 42, 69, 0.95);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+        }
+
+        .modal-content input[type="text"],
+        .modal-content input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+        }
+
+        .modal-content input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+
+        .modal-content button[type="submit"] {
+            background-color: var(--accent-color);
+            color: var(--dark-bg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 10px;
+            }
+
+            .employee-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+                padding: 10px;
+            }
+
+            .employee-card {
+                padding: 20px;
+            }
+
+            .employee-photo {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-button">← Back to Dashboard</a>
+        <h1>Registered Employees</h1>
+
+        <div class="employee-grid">
+            {% for employee in employees %}
+            <div class="employee-card" id="employee-{{ employee.id }}">
+                <img src="{{ employee.photo_base64 }}" alt="{{ employee.name }}" class="employee-photo">
+                <h3>{{ employee.name }}</h3>
+                <p>ID: {{ employee.employee_id }}</p>
+                <div class="employee-actions">
+                    <button class="edit-btn" onclick="editEmployee('{{ employee.id }}')">Edit</button>
+                    <button class="delete-btn" onclick="deleteEmployee('{{ employee.id }}')">Delete</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Edit Employee</h2>
+            <form id="editForm">
+                <input type="hidden" id="editEmployeeId">
+                <div>
+                    <label>Name:</label>
+                    <input type="text" id="editName">
+                </div>
+                <div>
+                    <label>Employee ID:</label>
+                    <input type="text" id="editEmployeeId">
+                </div>
+                <div>
+                    <label>New Photo (optional):</label>
+                    <input type="file" id="editPhoto" accept="image/*">
+                </div>
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function deleteEmployee(employeeId) {
+            if (confirm('Are you sure you want to delete this employee?')) {
+                fetch(`/delete_employee/${employeeId}/`, {
+                    method: 'POST',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById(`employee-${employeeId}`).remove();
+                    }
+                });
+            }
+        }
+
+        function editEmployee(employeeId) {
+            document.getElementById('editModal').style.display = 'block';
+            document.getElementById('editEmployeeId').value = employeeId;
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const employeeId = document.getElementById('editEmployeeId').value;
+            const formData = new FormData();
+            formData.append('name', document.getElementById('editName').value);
+            formData.append('employee_id', document.getElementById('editEmployeeId').value);
+
+            const photoFile = document.getElementById('editPhoto').files[0];
+            if (photoFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    formData.append('photo', e.target.result);
+                    submitEdit(employeeId, formData);
+                };
+                reader.readAsDataURL(photoFile);
+            } else {
+                submitEdit(employeeId, formData);
+            }
+        });
+
+        function submitEdit(employeeId, formData) {
+            fetch(`/edit_employee/${employeeId}/`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
